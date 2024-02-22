@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketplace</title>
+    <title>Marketplace - Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -22,69 +22,44 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="back.html">Back-Office</a>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li> -->
+                <form class="d-flex w-75 mt-3" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
                 </ul>
             </div>
         </div>
     </nav>
     
-    <form class="d-flex w-75 mt-3" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
 
     <div class="container-fluid mt-5" style="width: 80%;">
-        <div class="row d-flex justify-content-around" id="card-container">
+        <div class="row d-flex justify-content-start" id="card-container">
             <!-- Qui si creano le carte dei prodotti -->
         </div>
     </div>
-
-
-
-      <!-- 
-        <div class="container-fluid mt-5">
-            <div class="row d-flex justify-content-start" id="card-container">
-                <div class="card mb-5 border-0 col-lg-2 col-md-4 col-sm-6">
-                    <div class="card-img">
-                        <img src="https://images-na.ssl-images-amazon.com/images/I/91xrEMcvmQL.jpg" alt="" class="img-fluid rounded">
-                    </div>
-                    <div class="card-text">
-                        <div class="price d-flex align-items-center mt-1">
-                            <span class="star-rating d-flex align-items-center">
-                                €
-                                <span class="mx-1 star-rating-num">4.75</span>
-                            </span>
-                        </div>
-                        <p class="title-info mb-0">Ciao come va</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-       -->
-
-
-
-
-
-
-
-
-
-
-
+    
+    <!-- Alert che compare se non sono stati inseriti tutti i dati di creazione di un nuovo prodotto -->
+    <div class="alert alert-warning d-none my-3" role="alert" id="alert-msg">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>Devi inserire tutti e 5 i campi obbligatori!</span>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>

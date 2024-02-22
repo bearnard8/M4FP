@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace - Back-Office</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="back-style.css">
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fa-regular fa-compass"></i>
+                <span>
+                    myMarket
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="back.html">Back-Office</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Tabella prodotti - area di modifica -->
+        <table class="table table-dark table-striped align-middle">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Image URL</th>
+                <th scope="col">Price</th>
+                <th scope="col">Operations</th>
+              </tr>
+            </thead>
+            <tbody id="results-area">
+              <!-- Area dove si genera l'elenco di prodotti -->
+            </tbody>
+        </table>
+
+        <!-- Creation Area -->
+        <div class="creation-area row bg-dark p-3 g-0 text-center">
+            <div class="col-md-2">
+                <input type="text" id="product-name" placeholder="product name...">
+            </div>
+            <div class="col-md-2">
+                <input type="text" id="product-description" placeholder="product Description...">
+            </div>
+            <div class="col-md-2">
+                <input type="text" id="product-brand" placeholder="product Brand...">
+            </div>
+            <div class="col-md-2">
+                <input type="text" id="product-imgurl" placeholder="product Image URL...">
+            </div>
+            <div class="col-md-2">
+                <input type="number" id="product-price" step="0.01" min="0" max="1000000" placeholder="product Price...">
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-sm btn-success" onclick="createProduct()">Create product</button>
+            </div>
+        </div>
+
+        <!-- Alert per segnalare dati incompleti -->
+        <div class="alert alert-warning d-none my-3" role="alert" id="create-alert-msg">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Devi inserire tutti e 5 i campi obbligatori!</span>
+        </div>
+
+        <!-- Alert per segnalare l'eliminazione di un prodotto -->
+        <div class="alert alert-danger d-none my-3" role="alert" id="delete-alert-msg">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>L'elemento è stato eliminato</span>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5134816b72.js" crossorigin="anonymous"></script>
+    <script src="back.js"></script>
+</body>
+</html>
