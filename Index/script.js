@@ -1,7 +1,7 @@
 // Endpoint API lista prodotti
 const endpoint = "https://striveschool-api.herokuapp.com/api/product/";
 
-//Box dei risultati:
+// Box dei risultati:
 const resultsBox = document.getElementById("card-container");
 
 // Recupero i dati dall'endpoint
@@ -30,13 +30,6 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
         cardBox.classList.add("mb-4", "col-lg-2", "col-md-3", "col-sm-6");
     let card = document.createElement("div");
         card.classList.add("card", "border-0");
-
-    /* Bottone per il modale del prodotto
-    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <img src="https://m.media-amazon.com/images/I/61UQCijyvrL._AC_SX522_.jpg" alt="">
-    </button>
-    */
-
     let imgBox = document.createElement("button");
         imgBox.classList.add("card-img", "border-0", "btn");
         imgBox.setAttribute("type", "button");
@@ -50,9 +43,6 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
     let productName = document.createElement("p");
         productName.classList.add("mb-0", "fw-bold");
         productName.innerText = name;
-    /*let productDescription = document.createElement("p");
-        productDescription.classList.add("mb-0", "product-desc");
-        productDescription.innerText = description;*/
     let productBrand = document.createElement("p");
         productBrand.classList.add("mb-0");
         productBrand.innerText = brand;
@@ -65,7 +55,7 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
         dynPrice.classList.add("mx-1");
         dynPrice.innerText = price;
     
-    //Product modal
+    // Template modale del prodotto
     /*
     <div class="modal fade" id="ciao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -117,22 +107,6 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
         xBtn.setAttribute("aria-label", "Close");
     let modalBody = document.createElement("div");
         modalBody.classList.add("modal-body", "d-flex", "p-4");
-    /*
-    <span class="product-img me-2">
-        <img src="https://m.media-amazon.com/images/I/61UQCijyvrL._AC_SX522_.jpg" alt="" class="img-fluid">
-    </span>
-    <span class="text ms-2 d-flex flex-column align-items-start justify-content-center">
-        <div class="modal-product-name fw-bold mb-1">
-            iPhone bla bla
-        </div>
-        <div class="modal-product-desc mb-1">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi temporibus iusto fuga error quia deserunt ad eveniet autem aut corrupti. Est aut exercitationem molestiae doloremque unde eveniet nihil aliquam odit.
-        </div>
-        <div class="modal-product-price">
-            15482
-        </div>
-    </span>
-    */
     let modalImgBox = document.createElement("span");
         modalImgBox.classList.add("product-img", "me-2");
     let modalImg = document.createElement("img");
@@ -149,7 +123,6 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
     let modalProdPrice = document.createElement("div");
         modalProdPrice.classList.add("modal-product-price");
         modalProdPrice.innerText = price;
-
     let modalFooter = document.createElement("div");
         modalFooter.classList.add("modal-footer");
     let closeBtn = document.createElement("button");
@@ -178,25 +151,23 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
                     modalFooter.appendChild(closeBtn);
                     modalFooter.appendChild(confirmBtn);
 
-
-
     /*
     let buttonBox = document.createElement("div");
-    buttonBox.classList.add("row")
+        buttonBox.classList.add("row")
     let cartButton = document.createElement("button");
-    cartButton.classList.add("btn", "btn-success", "mb-1", "col-6");
-    cartButton.type = "button";
-    cartButton.addEventListener("click", () => {
-        addToCart(book);
-    });
-    cartButton.innerText = "Add to Cart";
+        cartButton.classList.add("btn", "btn-success", "mb-1", "col-6");
+        cartButton.type = "button";
+        cartButton.addEventListener("click", () => {
+            addToCart(book);
+        });
+        cartButton.innerText = "Add to Cart";
     let skipButton = document.createElement("button");
-    skipButton.classList.add("btn", "btn-danger", "mb-1", "col-6");
-    skipButton.type = "button";
-    skipButton.innerText = "Skip";
-    skipButton.addEventListener("click", () => {
-        skipBook(card);
-    });
+        skipButton.classList.add("btn", "btn-danger", "mb-1", "col-6");
+        skipButton.type = "button";
+        skipButton.innerText = "Skip";
+        skipButton.addEventListener("click", () => {
+            skipBook(card);
+        });
     */
 
 
@@ -206,7 +177,6 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
                 imgBox.appendChild(productImg);
             card.appendChild(textBox);
                 textBox.appendChild(productName);
-                //textBox.appendChild(productDescription);
                 textBox.appendChild(productBrand);
                 textBox.appendChild(priceBox);
                     priceBox.appendChild(priceBoxInner);
@@ -214,6 +184,5 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
             /*card.appendChild(buttonBox);
                 buttonBox.appendChild(cartButton);
                 buttonBox.appendChild(skipButton);*/
-
 }
 
