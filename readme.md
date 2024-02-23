@@ -17,9 +17,28 @@
 
 ### Funzioni
 
-Funzioni di creazione
+#### Funzioni di creazione
 
-Funzioni di filtraggio e ricerca
+Home:
+
+- funzione per la creazione delle card dei prodotti; FATTO
+
+Back-Office:
+
+- funzione per la creazione della tabella dei prodotti; FATTO
+- funzione per la modifica del singolo prodotto; FATTO
+- funzione per l'eliminazione del singolo prodotto; FATTO
+
+#### Funzioni di filtraggio e ricerca
+
+Home:
+
+- funzione per cercare un prodotto tra quelli disponibili;
+- funzione per filtrare, tra tutti i prodotti, quelli appartenenti a una specifica categoria, tramite bottoni;
+
+Back-Office:
+
+- funzione per filtrare i prodotti all'interno della tabella di prodotti;
 
 ### Specifiche
 
