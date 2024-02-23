@@ -2,7 +2,7 @@
 
 ## Marketplace
 
-### Consegne
+### 1.0 Consegne
 
 - Creare un finto e-commerce con le funzionalità di gestione dei prodotti (nessuna funzionalità di pagamento)
 - Frontpage dove si vedono tutti i prodotti
@@ -13,11 +13,11 @@
     - Rimanda ad una pagina di modifica del post singolo
 - Una pagina di descrizione del prodotto singolo
   - Cliccando su un prodotto l'utente deve essere reindirizzato ad una pagina specifica, passa l'ID come query string nell'URL.
-      ...product/ID
+    ...product/ID
 
-### Funzioni
+### 2.0 Funzioni
 
-#### Funzioni di creazione
+#### 2.1 Funzioni di creazione
 
 Home:
 
@@ -28,8 +28,9 @@ Back-Office:
 - funzione per la creazione della tabella dei prodotti; FATTO
 - funzione per la modifica del singolo prodotto; FATTO
 - funzione per l'eliminazione del singolo prodotto; FATTO
+- funzione di conferma per eliminare il prodotto
 
-#### Funzioni di filtraggio e ricerca
+#### 2.2 Funzioni di filtraggio e ricerca
 
 Home:
 
@@ -40,7 +41,13 @@ Back-Office:
 
 - funzione per filtrare i prodotti all'interno della tabella di prodotti;
 
-### Specifiche
+#### 2.3 Altre funzioni
+
+Home:
+
+- funzione per aprire il modale di dettaglio del prodotto
+
+### 3.0 Specifiche
 
 Oggetto del prodotto:
 
@@ -52,7 +59,7 @@ Oggetto del prodotto:
     "imageUrl": "url foto",                 // OBBLIGATORIO
     "price": "xxxxx€",                      // OBBLIGATORIO
     "userId": "admin",                      // GENERATO DAL SERVER
-    "createdAt": "data di creazione",        // GENERATO DAL SERVER
+    "createdAt": "data di creazione",       // GENERATO DAL SERVER
     "updatedAt": data di modifica",         // GENERATO DAL SERVER
     "__v": 0                                // GENERATO DAL SERVER
 }
