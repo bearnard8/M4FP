@@ -19,11 +19,28 @@ const productImgURLInput = document.getElementById("product-imgurl");
 //Box creazione prodotto: price
 const productPriceInput = document.getElementById("product-price");
 
+// Tutti gli input
+const inputs = [productNameInput, productDescriptionInput, productBrandInput, productImgURLInput, productPriceInput];
+
 // Alert per dati incompleti:
 const createInputAlert = document.getElementById("create-alert-msg");
 
 // Alert per eliminazione prodotto:
 const deleteInputAlert = document.getElementById("delete-alert-msg");
+
+// Bottone di conferma dell'eliminazione
+const confDelBtn = document.getElementById("del-conf-btn");
+
+// Funzioni di filtraggio
+// Bottoni per il filtraggio dei risultati
+const buttons = document.querySelectorAll(".filter-btn");
+
+// Assegnazione dell'evento ai bottoni delle categorie
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        filterResults(button.value);
+    })
+})
 
 // Recupero i dati dall'endpoint
 window.onload = getProducts();
@@ -46,27 +63,9 @@ async function getProducts() {
 
 //Funzione per compilare la lista dei prodotti
 function createProductRow({ _id, name, description, brand, imageUrl, price }) {
-    // Template tipo:
-    // --------------
-    // <tr>
-    //     <th>Name</th>
-    //     <td>Description</td>
-    //     <td>Price</td>
-    //     <td>
-    //         <a class="btn btn-primary btn-sm">
-    //             <i class="fa-solid fa-pencil" aria-hidden="true"></i>
-    //             <span class="ms-1">Edit</span>
-    //         </a>
-    //         <a class="btn btn-danger btn-sm ms-1">
-    //             <i class="fa-solid fa-trash" aria-hidden="true"></i>
-    //             <span class="ms-1">Delete</span>
-    //         </a>
-    //     </td>
-    // </tr>
 
     // Istruzioni per costruire il template tramite JS:
     let tableRow = document.createElement("tr");
-
     let rowName = document.createElement("th");
         rowName.innerText = name;
     let rowDesc = document.createElement("td");
@@ -88,40 +87,79 @@ function createProductRow({ _id, name, description, brand, imageUrl, price }) {
         editBtn.target = "_blank";
     let editImg = document.createElement("i");
         editImg.classList.add("fa-solid", "fa-pencil");
-    let editText = document.createElement("span");
-        editText.classList.add("ms-1");
-        //editText.innerText = "Edit";
 
-        
     // Tasto di cancellazione:
     let delBtn = document.createElement("a");
         delBtn.classList.add("btn", "btn-danger", "btn-sm", "ms-1");
-        delBtn.addEventListener("click", () => {
-            deleteProduct(_id);
-        });
+        delBtn.setAttribute("type", "button");
+        delBtn.setAttribute("data-bs-toggle", "modal");
+        delBtn.setAttribute("data-bs-target", `#modal${_id}`);
     let delImg = document.createElement("i");
         delImg.classList.add("fa-solid", "fa-trash");
-    let delText = document.createElement("span");
-        delText.classList.add("ms-1");
-        //delText.innerText = "Delete";
+
+    // Modale per la conferma della cancellazione
+    let modalContainer = document.createElement("div");
+        modalContainer.classList.add("modal", "fade");
+        modalContainer.setAttribute("id", `modal${_id}`);
+        modalContainer.setAttribute("tabindex", "-1");
+        modalContainer.setAttribute("aria-labelledby", "exampleModalLabel"); //da capire
+        modalContainer.setAttribute("aria-hidden", "true");
+    let modalDialog = document.createElement("div");
+        modalDialog.classList.add("modal-dialog");
+    let modalContent = document.createElement("div");
+        modalContent.classList.add("modal-content");
+    let modalHeader = document.createElement("div");
+        modalHeader.classList.add("modal-header");
+    let xBtn = document.createElement("button");
+        xBtn.classList.add("btn-close");
+        xBtn.setAttribute("type", "button");
+        xBtn.setAttribute("data-bs-dismiss", "modal");
+        xBtn.setAttribute("aria-label", "Close");
+    let modalBody = document.createElement("div");
+        modalBody.classList.add("modal-body");
+    let modalText = document.createElement("span");
+        modalText.classList.add("text");
+        modalText.innerText = "Sei sicuro di voler eliminare questo prodotto?"
+    let modalFooter = document.createElement("div");
+        modalFooter.classList.add("modal-footer");
+    let closeBtn = document.createElement("button");
+        closeBtn.classList.add("btn", "btn-secondary");
+        closeBtn.setAttribute("type", "button");
+        closeBtn.setAttribute("data-bs-dismiss", "modal");
+        closeBtn.innerText = "Close";
+    let confirmBtn = document.createElement("button");
+        confirmBtn.classList.add("btn", "btn-primary");
+        confirmBtn.setAttribute("type", "button");
+        confirmBtn.innerText = "Confirm";
+        confirmBtn.addEventListener("click", () => {
+            deleteProduct(_id);
+        });
         
-    editBtn.appendChild(editImg);
-    editBtn.appendChild(editText);
-
-    delBtn.appendChild(delImg);
-    delBtn.appendChild(delText);
-
-    rowOps.appendChild(editBtn);
-    rowOps.appendChild(delBtn);
-
-    tableRow.appendChild(rowName);
-    tableRow.appendChild(rowDesc);
-    tableRow.appendChild(rowBrand);
-    tableRow.appendChild(rowImgUrl);
-    tableRow.appendChild(rowPrice);
-    tableRow.appendChild(rowOps);
-
     resultsBox.appendChild(tableRow);
+        tableRow.appendChild(rowName);
+        tableRow.appendChild(rowDesc);
+        tableRow.appendChild(rowBrand);
+        tableRow.appendChild(rowImgUrl);
+        tableRow.appendChild(rowPrice);
+        tableRow.appendChild(rowOps);
+            rowOps.appendChild(editBtn);
+                editBtn.appendChild(editImg);
+            rowOps.appendChild(delBtn);
+                delBtn.appendChild(delImg);
+    resultsBox.appendChild(modalContainer);
+        modalContainer.appendChild(modalDialog);
+            modalDialog.appendChild(modalContent);
+                modalContent.appendChild(modalHeader);
+                    modalHeader.appendChild(xBtn);
+                modalContent.appendChild(modalBody);
+                    modalBody.appendChild(modalText);
+                modalContent.appendChild(modalFooter)
+                    modalFooter.appendChild(closeBtn);
+                    modalFooter.appendChild(confirmBtn);
+
+
+    
+
 }
 
 //Funzione per l'inserimento di un nuovo prodotto
@@ -149,9 +187,10 @@ async function createProduct() {
             createInputAlert.classList.toggle(d-none);
         }, 5000);    
     }
+    inputs.forEach((input) => {
+        input.value = "";
+    })
 }
-
-//Funzione per la modifica di un prodotto
 
 //Funzione per la rimozione di un prodotto
 async function deleteProduct (pid) {
@@ -164,4 +203,35 @@ async function deleteProduct (pid) {
         deleteInputAlert.classList.toggle(d-none);
     }, 5000);   
     getProducts();
+}
+
+// Funzione per il filtraggio della tabella
+
+async function filterResults (category) {
+
+    const divider = "-";
+    const filteredResults = [];
+
+    try {
+        const res = await fetch(endpoint, {
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ0ZTljMjljNDM3MDAwMTkzYzM3MTciLCJpYXQiOjE3MDg0NTIyOTAsImV4cCI6MTcwOTY2MTg5MH0.YXeB9lmn-AGHu-2ecBBH9Gc7mLil69yE2l0g1f1Yd7A'
+            }
+        });
+        const json = await res.json();
+            json.filter((product) => {
+                const dividerIndex = product.description.indexOf(divider);
+                const prodSubstr = product.description.substring(0, dividerIndex)
+                if (prodSubstr.toLowerCase().trim() === category) {
+                    filteredResults.push(product);
+                }
+                return filteredResults;
+            });
+        resultsBox.innerHTML = "";
+        filteredResults.forEach((product) =>{
+            createProductRow(product);
+        })
+    } catch (err) {
+        console.log(err);
+    }
 }

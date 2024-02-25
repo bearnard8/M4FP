@@ -4,6 +4,17 @@ const endpoint = "https://striveschool-api.herokuapp.com/api/product/";
 // Box dei risultati:
 const resultsBox = document.getElementById("card-container");
 
+// Funzioni di filtraggio
+// Bottoni per il filtraggio dei risultati
+const buttons = document.querySelectorAll(".filter-btn");
+
+// Assegnazione dell'evento ai bottoni delle categorie
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        filterResults(button.value);
+    })
+})
+
 // Recupero i dati dall'endpoint
 window.onload = getProducts();
 
@@ -94,7 +105,7 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
         modalContainer.setAttribute("aria-labelledby", "exampleModalLabel"); //da capire
         modalContainer.setAttribute("aria-hidden", "true");
     let modalDialog = document.createElement("div");
-        modalDialog.classList.add("modal-dialog");
+        modalDialog.classList.add("modal-dialog", "modal-dialog-centered", "modal-dialog-scrollable");
     let modalContent = document.createElement("div");
         modalContent.classList.add("modal-content");
         modalContent.setAttribute("id", _id);
@@ -186,3 +197,39 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
                 buttonBox.appendChild(skipButton);*/
 }
 
+// Funzione per filtrare i prodotti rispetto alle categorie
+
+/*
+    - COn l'onclick del bottone passo il valore e innesco la funzione
+    - La funzione svuota l'html, esegue una fetch e filtra i prodotti prendendo solo quelli della categoria scelta
+    - Passa l'array filtrato alla createCardTemplate()
+*/
+
+async function filterResults (category) {
+
+    const divider = "-";
+    const filteredResults = [];
+
+    try {
+        const res = await fetch(endpoint, {
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ0ZTljMjljNDM3MDAwMTkzYzM3MTciLCJpYXQiOjE3MDg0NTIyOTAsImV4cCI6MTcwOTY2MTg5MH0.YXeB9lmn-AGHu-2ecBBH9Gc7mLil69yE2l0g1f1Yd7A'
+            }
+        });
+        const json = await res.json();
+            json.filter((product) => {
+                const dividerIndex = product.description.indexOf(divider);
+                const prodSubstr = product.description.substring(0, dividerIndex)
+                if (prodSubstr.toLowerCase().trim() === category) {
+                    filteredResults.push(product);
+                }
+                return filteredResults;
+            });
+        resultsBox.innerHTML = "";
+        filteredResults.forEach((product) =>{
+            createCardTemplate(product);
+        })
+    } catch (err) {
+        console.log(err);
+    }
+}

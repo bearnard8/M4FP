@@ -33,9 +33,20 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <!-- Bottoni di filtraggio dei prodotti -->
+    <div id="filter-buttons" class="d-flex justify-content-center mt-3">
+        <button class="btn btn-outline-primary mx-2" onclick="getProducts()">Tutti</button>
+        <button class="filter-btn btn btn-outline-primary mx-2" id="tech-btn" value="tech">Tech</button>
+        <button class="filter-btn btn btn-outline-primary mx-2" id="libri-btn" value="libri">Libri</button>
+        <button class="filter-btn btn btn-outline-primary mx-2" id="home-btn" value="home">Home</button>
+        <button class="filter-btn btn btn-outline-primary mx-2" id="musica-btn" value="musica">Musica</button>
+        <button class="filter-btn btn btn-outline-primary mx-2" id="giochi-btn" value="giochi">Giochi</button>
+        <button class="filter-btn btn btn-outline-primary mx-2" id="org-btn" value="organizzazione">Organizzazione</button>
+    </div>
+
+    <div class="container mt-4" id="prod-table-cont">
         <!-- Tabella prodotti - area di modifica -->
-        <table class="table table-dark table-striped align-middle">
+        <table class="table table-secondary table-striped align-middle">
             <thead>
               <tr>
                 <th scope="col">Name</th>
@@ -51,24 +62,43 @@
             </tbody>
         </table>
 
+        <!-- Modale per chiedere conferma dell'eliminazione del prodotto -->
+        <div class="modal" tabindex="-1" id="deleteProdMod">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="del-conf-btn">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Creation Area -->
-        <div class="creation-area row bg-dark p-3 g-0 text-center">
-            <div class="col-md-2">
-                <input type="text" id="product-name" placeholder="product name...">
+        <div class="creation-area row bg-secondary p-3 g-0 text-center rounded fixed-bottom m-2 w-75 mx-auto">
+            <div class="col">
+                <input type="text" class="form-control-sm" id="product-name" placeholder="product name...">
             </div>
-            <div class="col-md-2">
-                <input type="text" id="product-description" placeholder="product Description...">
+            <div class="col">
+                <input type="text" class="form-control-sm" id="product-description" placeholder="product Description...">
             </div>
-            <div class="col-md-2">
-                <input type="text" id="product-brand" placeholder="product Brand...">
+            <div class="col">
+                <input type="text" class="form-control-sm" id="product-brand" placeholder="product Brand...">
             </div>
-            <div class="col-md-2">
-                <input type="text" id="product-imgurl" placeholder="product Image URL...">
+            <div class="col">
+                <input type="text" class="form-control-sm" id="product-imgurl" placeholder="product Image URL...">
             </div>
-            <div class="col-md-2">
-                <input type="number" id="product-price" step="0.01" min="0" max="1000000" placeholder="product Price...">
+            <div class="col">
+                <input type="number" id="product-price" class="form-control-sm" step="0.01" min="0" max="1000000" placeholder="product Price...">
             </div>
-            <div class="col-md-2">
+            <div class="col">
                 <button type="button" class="btn btn-sm btn-success" onclick="createProduct()">Create product</button>
             </div>
         </div>

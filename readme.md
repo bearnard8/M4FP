@@ -28,24 +28,24 @@ Back-Office:
 - funzione per la creazione della tabella dei prodotti; FATTO
 - funzione per la modifica del singolo prodotto; FATTO
 - funzione per l'eliminazione del singolo prodotto; FATTO
-- funzione di conferma per eliminare il prodotto
+- funzione di conferma per eliminare il prodotto; FATTO
 
 #### 2.2 Funzioni di filtraggio e ricerca
 
 Home:
 
 - funzione per cercare un prodotto tra quelli disponibili;
-- funzione per filtrare, tra tutti i prodotti, quelli appartenenti a una specifica categoria, tramite bottoni;
+- funzione per filtrare, tra tutti i prodotti, quelli appartenenti a una specifica categoria, tramite bottoni; FATTO
 
 Back-Office:
 
-- funzione per filtrare i prodotti all'interno della tabella di prodotti;
+- funzione per filtrare i prodotti all'interno della tabella di prodotti; FATTO
 
 #### 2.3 Altre funzioni
 
 Home:
 
-- funzione per aprire il modale di dettaglio del prodotto
+- funzione per aprire il modale di dettaglio del prodotto FATTO
 
 ### 3.0 Specifiche
 
