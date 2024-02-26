@@ -34,7 +34,7 @@ Back-Office:
 
 Home:
 
-- funzione per cercare un prodotto tra quelli disponibili;
+- funzione per cercare un prodotto tra quelli disponibili; FATTO
 - funzione per filtrare, tra tutti i prodotti, quelli appartenenti a una specifica categoria, tramite bottoni; FATTO
 
 Back-Office:
@@ -64,12 +64,7 @@ Oggetto del prodotto:
     "__v": 0                                // GENERATO DAL SERVER
 }
 
-### Grafica
+### Considerazioni
 
-#### Palette di colori
-
-- #000000: nero
-- #14213d: blu scuro
-- #fca311: arancione
-- #e5e5e5: grigio chiaro
-- #ffffff: bianco
+Sono riuscito a implementare tutte le funzionalità che mi ero prefisso, ho lasciato da parte la parte grafica che purtroppo è abbastanza carente.
+Sicuramente si potrebbe aggiungere una hero-section con carosello come accoglienza e rifinire ampiamente la grafica dei modali dei prodotti, come anche le card e la responsivness.
