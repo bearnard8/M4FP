@@ -63,3 +63,13 @@ Oggetto del prodotto:
     "updatedAt": data di modifica",         // GENERATO DAL SERVER
     "__v": 0                                // GENERATO DAL SERVER
 }
+
+### Grafica
+
+#### Palette di colori
+
+- #000000: nero
+- #14213d: blu scuro
+- #fca311: arancione
+- #e5e5e5: grigio chiaro
+- #ffffff: bianco

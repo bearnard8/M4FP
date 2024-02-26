@@ -8,6 +8,11 @@
 
 /* Styling delle card */
 
+.card {
+    min-height: 300px;
+    box-shadow: 1px 1px 15px rgb(189, 189, 189);
+}
+
 .product-desc {
     font-size: 10px;
 }

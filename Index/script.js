@@ -40,7 +40,7 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
     let cardBox = document.createElement("div");
         cardBox.classList.add("mb-4", "col-lg-2", "col-md-3", "col-sm-6");
     let card = document.createElement("div");
-        card.classList.add("card", "border-0");
+        card.classList.add("card", "border-0", "p-2", "d-flex", "flex-column", "justify-content-between", "h-100");
     let imgBox = document.createElement("button");
         imgBox.classList.add("card-img", "border-0", "btn");
         imgBox.setAttribute("type", "button");

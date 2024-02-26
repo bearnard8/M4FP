@@ -77,7 +77,7 @@ function createProductRow({ _id, name, description, brand, imageUrl, price }) {
         rowImgUrl.innerText = imageUrl;
         rowImgUrl.classList.add("text-break");
     let rowPrice = document.createElement("td");
-        rowPrice.innerText = price;
+        rowPrice.innerText = `${price}€`;
     let rowOps = document.createElement("td");
 
     // Tasto di modifica:
