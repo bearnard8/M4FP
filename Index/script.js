@@ -4,16 +4,54 @@ const endpoint = "https://striveschool-api.herokuapp.com/api/product/";
 // Box dei risultati:
 const resultsBox = document.getElementById("card-container");
 
-// Funzioni di filtraggio
-// Bottoni per il filtraggio dei risultati
-const buttons = document.querySelectorAll(".filter-btn");
+// Input di ricerca prodotto
+const searchProdInput = document.getElementById("search-prod-input");
 
-// Assegnazione dell'evento ai bottoni delle categorie
-buttons.forEach(button => {
-    button.addEventListener("click", () => {
-        filterResults(button.value);
+// Funzioni di filtraggio
+window.onload = createFilterBtns();
+
+// Funzione per creare i bottoni delle categorie in base a quelle presenti
+async function createFilterBtns () {
+
+    const divider = "-";
+    let categories = [];
+
+    try {
+        const res = await fetch(endpoint, {
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ0ZTljMjljNDM3MDAwMTkzYzM3MTciLCJpYXQiOjE3MDg0NTIyOTAsImV4cCI6MTcwOTY2MTg5MH0.YXeB9lmn-AGHu-2ecBBH9Gc7mLil69yE2l0g1f1Yd7A'
+            }
+        });
+        const json = await res.json();
+        // Creo un array con le categorie presenti tra i prodotti
+        json.forEach((product) => {
+            const dividerIndex = product.description.indexOf(divider);
+            const prodSubstr = product.description.substring(0, dividerIndex)
+            if (!(categories.includes(prodSubstr.trim()))) {
+                categories.push(prodSubstr.trim());
+            }
+        });
+        // Creo un bottone per ogni categoria presente nell'array
+        categories.forEach((category) =>{
+            let catBtn = document.createElement("button");
+                catBtn.classList.add("filter-btn", "btn", "btn-outline-primary", "mx-2");
+                catBtn.value = category;
+                catBtn.innerText = category;
+            let btnParent = document.getElementById("filter-buttons");
+                btnParent.appendChild(catBtn);
+        });
+    } catch (err) {
+        console.log(err);
+    }
+
+    const buttons = document.querySelectorAll(".filter-btn");
+    // Assegnazione dell'evento ai bottoni delle categorie
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            filterResults(button.value);
+        })
     })
-})
+}
 
 // Recupero i dati dall'endpoint
 window.onload = getProducts();
@@ -48,9 +86,11 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
         imgBox.setAttribute("data-bs-target", `#modal${_id}`);
     let productImg = document.createElement("img");
         productImg.src = imageUrl;
-        productImg.classList.add("img-fluid");
+        productImg.classList.add("img-fluid", "mh-100");
     let textBox = document.createElement("div");
-        textBox.classList.add("card-text");
+        textBox.classList.add("card-text", "d-flex", "flex-column", "justify-content-between");
+    let productInfo = document.createElement("div");
+        productInfo.classList.add("card-text");
     let productName = document.createElement("p");
         productName.classList.add("mb-0", "fw-bold");
         productName.innerText = name;
@@ -58,46 +98,39 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
         productBrand.classList.add("mb-0");
         productBrand.innerText = brand;
     let priceBox = document.createElement("div");
-        priceBox.classList.add("d-flex", "align-items-center", "mt-1", "fst-italic");
+        priceBox.classList.add("d-flex", "align-items-center", "justify-content-between", "m-0", "fst-italic");
     let priceBoxInner = document.createElement("span");
-        priceBoxInner.classList.add("d-flex", "align-items-center");
-        priceBoxInner.innerText = "€";
+        priceBoxInner.classList.add("d-flex", "align-items-center", "ms-3");
     let dynPrice = document.createElement("span");
         dynPrice.classList.add("mx-1");
         dynPrice.innerText = price;
-    
-    // Template modale del prodotto
-    /*
-    <div class="modal fade" id="ciao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex p-4">
-                    <span class="product-img me-2">
-                        <img src="https://m.media-amazon.com/images/I/61UQCijyvrL._AC_SX522_.jpg" alt="" class="img-fluid">
-                    </span>
-                    <span class="text ms-2 d-flex flex-column align-items-start justify-content-center">
-                        <div class="modal-product-name fw-bold mb-1">
-                            iPhone bla bla
-                        </div>
-                        <div class="modal-product-desc mb-1">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi temporibus iusto fuga error quia deserunt ad eveniet autem aut corrupti. Est aut exercitationem molestiae doloremque unde eveniet nihil aliquam odit.
-                        </div>
-                        <div class="modal-product-price">
-                            15482
-                        </div>
-                    </span>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ciao</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    */ 
+    let priceCurr = document.createElement("span");
+        priceCurr.innerText = "€";
+    let cartButton = document.createElement("button");
+        cartButton.classList.add("btn", "btn-success", "mb-1", "me-3", "px-2", "py-1", "text-center");
+        cartButton.type = "button";
+        cartButton.addEventListener("click", () => {
+            addToCart(product);
+        });
+    let cartIcon = document.createElement("i");
+        cartIcon.classList.add("fa-solid", "fa-cart-plus")
+        
+    resultsBox.appendChild(cardBox);
+        cardBox.appendChild(card);
+            card.appendChild(imgBox);
+                imgBox.appendChild(productImg);
+            card.appendChild(textBox);
+                textBox.appendChild(productInfo)
+                    productInfo.appendChild(productName);
+                    productInfo.appendChild(productBrand);
+                textBox.appendChild(priceBox);
+                    priceBox.appendChild(priceBoxInner);
+                        priceBoxInner.appendChild(dynPrice);
+                        priceBoxInner.appendChild(priceCurr);
+                    priceBox.appendChild(cartButton);        
+                        cartButton.appendChild(cartIcon);
+
+    // Modale con i dettagli del prodotto
     let modalContainer = document.createElement("div");
         modalContainer.classList.add("modal", "fade");
         modalContainer.setAttribute("id", `modal${_id}`);
@@ -141,10 +174,15 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
         closeBtn.setAttribute("type", "button");
         closeBtn.setAttribute("data-bs-dismiss", "modal");
         closeBtn.innerText = "Close";
-    let confirmBtn = document.createElement("button");
-        confirmBtn.classList.add("btn", "btn-primary");
-        confirmBtn.setAttribute("type", "button");
-        confirmBtn.innerText = "Confirm";
+    let modalCartButton = document.createElement("button");
+        modalCartButton.classList.add("btn", "btn-success", "mb-1", "me-3", "px-2", "py-1", "text-center");
+        modalCartButton.type = "button";
+        modalCartButton.addEventListener("click", () => {
+            addToCart(product);
+        });
+        modalCartButton.innerText = "Add to Cart";
+    let modalCartIcon = document.createElement("i");
+        modalCartIcon.classList.add("fa-solid", "fa-cart-plus", "ms-1")
 
     resultsBox.appendChild(modalContainer);
         modalContainer.appendChild(modalDialog);
@@ -160,50 +198,11 @@ function createCardTemplate ({_id, name, description, brand, imageUrl, price}) {
                         modalText.appendChild(modalProdPrice);
                 modalContent.appendChild(modalFooter)
                     modalFooter.appendChild(closeBtn);
-                    modalFooter.appendChild(confirmBtn);
-
-    /*
-    let buttonBox = document.createElement("div");
-        buttonBox.classList.add("row")
-    let cartButton = document.createElement("button");
-        cartButton.classList.add("btn", "btn-success", "mb-1", "col-6");
-        cartButton.type = "button";
-        cartButton.addEventListener("click", () => {
-            addToCart(book);
-        });
-        cartButton.innerText = "Add to Cart";
-    let skipButton = document.createElement("button");
-        skipButton.classList.add("btn", "btn-danger", "mb-1", "col-6");
-        skipButton.type = "button";
-        skipButton.innerText = "Skip";
-        skipButton.addEventListener("click", () => {
-            skipBook(card);
-        });
-    */
-
-
-    resultsBox.appendChild(cardBox);
-        cardBox.appendChild(card);
-            card.appendChild(imgBox);
-                imgBox.appendChild(productImg);
-            card.appendChild(textBox);
-                textBox.appendChild(productName);
-                textBox.appendChild(productBrand);
-                textBox.appendChild(priceBox);
-                    priceBox.appendChild(priceBoxInner);
-                        priceBoxInner.appendChild(dynPrice);
-            /*card.appendChild(buttonBox);
-                buttonBox.appendChild(cartButton);
-                buttonBox.appendChild(skipButton);*/
+                    modalFooter.appendChild(modalCartButton);
+                        modalCartButton.appendChild(modalCartIcon);
 }
 
 // Funzione per filtrare i prodotti rispetto alle categorie
-
-/*
-    - COn l'onclick del bottone passo il valore e innesco la funzione
-    - La funzione svuota l'html, esegue una fetch e filtra i prodotti prendendo solo quelli della categoria scelta
-    - Passa l'array filtrato alla createCardTemplate()
-*/
 
 async function filterResults (category) {
 
@@ -220,7 +219,7 @@ async function filterResults (category) {
             json.filter((product) => {
                 const dividerIndex = product.description.indexOf(divider);
                 const prodSubstr = product.description.substring(0, dividerIndex)
-                if (prodSubstr.toLowerCase().trim() === category) {
+                if (prodSubstr.trim() === category) {
                     filteredResults.push(product);
                 }
                 return filteredResults;
@@ -228,7 +227,34 @@ async function filterResults (category) {
         resultsBox.innerHTML = "";
         filteredResults.forEach((product) =>{
             createCardTemplate(product);
-        })
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// Funzione per ricercare un prodotto in base a una stringa di ricerca
+async function searchProduct () {
+
+    const searchKey = searchProdInput.value;
+    let searchResults = [];
+
+    try {
+        const res = await fetch(endpoint, {
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ0ZTljMjljNDM3MDAwMTkzYzM3MTciLCJpYXQiOjE3MDg0NTIyOTAsImV4cCI6MTcwOTY2MTg5MH0.YXeB9lmn-AGHu-2ecBBH9Gc7mLil69yE2l0g1f1Yd7A'
+            }
+        });
+        const json = await res.json();
+        json.forEach((product) => {
+            if(product.name.toLowerCase().trim().includes(searchKey.toLowerCase().trim()) || product.description.toLowerCase().trim().includes(searchKey.toLowerCase().trim()) || product.brand.toLowerCase().trim().includes(searchKey.toLowerCase().trim())){
+                searchResults.push(product)
+            }
+        });
+        resultsBox.innerHTML = "";
+        searchResults.forEach((product) =>{
+            createCardTemplate(product);
+        });
     } catch (err) {
         console.log(err);
     }

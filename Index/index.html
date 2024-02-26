@@ -30,22 +30,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/Back-Office/back.html ">Back-Office</a>
                     </li>
-                    <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li> -->
                 </ul>
-                <form class="d-flex w-75 my-1" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <div class="d-flex w-75 my-1" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"  id="search-prod-input">
+                    <button class="btn btn-outline-success" type="submit" onclick="searchProduct()">Search</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -53,17 +42,17 @@
     <!-- Bottoni di filtraggio dei prodotti -->
     <div id="filter-buttons" class="d-flex justify-content-center mt-3">
         <button class="btn btn-outline-primary mx-2" onclick="getProducts()">Tutti</button>
-        <button class="filter-btn btn btn-outline-primary mx-2" id="tech-btn" value="tech">Tech</button>
+        <!-- <button class="filter-btn btn btn-outline-primary mx-2" id="tech-btn" value="tech">Tech</button>
         <button class="filter-btn btn btn-outline-primary mx-2" id="libri-btn" value="libri">Libri</button>
         <button class="filter-btn btn btn-outline-primary mx-2" id="home-btn" value="home">Home</button>
         <button class="filter-btn btn btn-outline-primary mx-2" id="musica-btn" value="musica">Musica</button>
         <button class="filter-btn btn btn-outline-primary mx-2" id="giochi-btn" value="giochi">Giochi</button>
-        <button class="filter-btn btn btn-outline-primary mx-2" id="org-btn" value="organizzazione">Organizzazione</button>
+        <button class="filter-btn btn btn-outline-primary mx-2" id="org-btn" value="organizzazione">Organizzazione</button> -->
     </div>
     
     <!-- Container delle card dei prodotti -->
     <div class="container-fluid mt-4" style="width: 85%;">
-        <div class="row d-flex justify-content-start gx-5" id="card-container">
+        <div class="row d-flex justify-content-start gx-3" id="card-container">
             <!-- Qui si creano le carte dei prodotti -->
         </div>
     </div>

@@ -32,15 +32,51 @@ const deleteInputAlert = document.getElementById("delete-alert-msg");
 const confDelBtn = document.getElementById("del-conf-btn");
 
 // Funzioni di filtraggio
-// Bottoni per il filtraggio dei risultati
-const buttons = document.querySelectorAll(".filter-btn");
+window.onload = createFilterBtns();
 
-// Assegnazione dell'evento ai bottoni delle categorie
-buttons.forEach(button => {
-    button.addEventListener("click", () => {
-        filterResults(button.value);
+// Funzione per creare i bottoni delle categorie in base a quelle presenti
+async function createFilterBtns () {
+
+    const divider = "-";
+    let categories = [];
+
+    try {
+        const res = await fetch(endpoint, {
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ0ZTljMjljNDM3MDAwMTkzYzM3MTciLCJpYXQiOjE3MDg0NTIyOTAsImV4cCI6MTcwOTY2MTg5MH0.YXeB9lmn-AGHu-2ecBBH9Gc7mLil69yE2l0g1f1Yd7A'
+            }
+        });
+        const json = await res.json();
+        // Creo un array con le categorie presenti tra i prodotti
+        json.forEach((product) => {
+            const dividerIndex = product.description.indexOf(divider);
+            const prodSubstr = product.description.substring(0, dividerIndex)
+            if (!(categories.includes(prodSubstr.trim()))) {
+                categories.push(prodSubstr.trim());
+            }
+        });
+        // Creo un bottone per ogni categoria presente nell'array
+        categories.forEach((category) =>{
+            let catBtn = document.createElement("button");
+                catBtn.classList.add("filter-btn", "btn", "btn-outline-primary", "mx-2");
+                catBtn.value = category;
+                catBtn.innerText = category;
+            let btnParent = document.getElementById("filter-buttons");
+                btnParent.appendChild(catBtn);
+        });
+    } catch (err) {
+        console.log(err);
+    }
+
+    const buttons = document.querySelectorAll(".filter-btn");
+    // Assegnazione dell'evento ai bottoni delle categorie
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            console.log("ciao")
+            filterResults(button.value);
+        })
     })
-})
+}
 
 // Recupero i dati dall'endpoint
 window.onload = getProducts();
@@ -222,7 +258,7 @@ async function filterResults (category) {
             json.filter((product) => {
                 const dividerIndex = product.description.indexOf(divider);
                 const prodSubstr = product.description.substring(0, dividerIndex)
-                if (prodSubstr.toLowerCase().trim() === category) {
+                if (prodSubstr.trim() === category) {
                     filteredResults.push(product);
                 }
                 return filteredResults;
